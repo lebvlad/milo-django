@@ -1,0 +1,12 @@
+{% extends 'test_case/base.html' %}
+{% block content %}
+<div>
+<h3>Profile</h3>
+<p>User <b>{{user.username}}</b> was born on <b>{{user.profile.birthday}}</b></p>
+<p>The number is <b>{{user.profile.number}}</b></p>
+</div>
+<div>
+    <a class="btn btn-outline-secondary" href="{% url 'user-edit' profile_name=user.username %}">Edit User</a>
+    <a class="btn btn-outline-danger" href="{% url 'user-delete' profile_name=user.username %}" >Delete User</a>
+</div>
+{% endblock content %}

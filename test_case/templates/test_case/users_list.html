@@ -1,0 +1,33 @@
+{% extends 'test_case/base.html' %}
+{% load bizzfuzz %}
+{% load eligible %}
+{% block content %}
+
+<table class="table table-hover">
+  <thead>
+    <tr bgcolor="#faa83b;">
+      <th scope="col">Username</th>
+      <th scope="col">Birthday</th>
+      <th scope="col">Eligible </th>
+      <th scope="col">Random Number</th>
+      <th scope="col">BizzFuzz</th>
+    </tr>
+  </thead>
+  <tbody class="table">
+    
+    {% for user in users %}
+    <tr>
+      <th scope="row"><a href="{% url 'user-profile' profile_name=user.username %}"> {{ user.username }} </th>
+      <td> {{ user.profile.birthday|date:"n/j/Y" }} </td>
+      <td>{% is_eligible birthday=user.profile.birthday %}</td>
+      <td>{{ user.profile.number }}</td>
+      <td>{% bizz_or_fuzz number=user.profile.number %}</td>
+    </tr>
+    {% endfor %}
+
+  </tbody>
+</table>
+
+<a class="btn btn-outline-success" href="{% url 'export-csv' %}">Download CSV</a>
+
+{% endblock content %}
